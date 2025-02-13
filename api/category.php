@@ -6,12 +6,23 @@ header('Content-Type: application/json');
 
 // Handle API requests
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['name']) && !empty($_POST['name'])) {
+
+    // Check if category_id is provided (update existing category)
+    if (isset($_POST['category_id']) && !empty($_POST['category_id'])) {
+        // Update the category
+        $categoryId = $_POST['category_id'];
+        $name = $_POST['name'];
+        $response = $categoryModel->updateCategory($categoryId, $name);
+    } else if (isset($_POST['name']) && !empty($_POST['name'])) {
         $response = $categoryModel->addCategory($_POST['name']);
         echo json_encode($response);
     } else {
         echo json_encode(['success' => false, 'message' => 'Category name is required.']);
     }
+    exit();
+} else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['category_id'])) {
+    $response = $categoryModel->getCategoryById($_GET['category_id']);
+    echo json_encode($response);
     exit();
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Fetch all categories
