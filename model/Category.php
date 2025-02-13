@@ -30,4 +30,16 @@ class Category {
             return [];
         }
     }
+
+    // Delete a category by ID
+    public function deleteCategory($id) {
+        try {
+            $sql = "DELETE FROM category WHERE id = :id";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([':id' => $id]);
+            return ["success" => true, "message" => "Category deleted successfully!"];
+        } catch (PDOException $e) {
+            return ["success" => false, "message" => $e->getMessage()];
+        }
+    }
 }

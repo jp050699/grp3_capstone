@@ -50,7 +50,30 @@
     }
 
     // Function to delete a category
-    async function deleteCategory(deleteCategoryId) {
+    async function deleteCategory(categoryId) {
+        const confirmDelete = confirm('Are you sure you want to delete this category?');
+        if (confirmDelete) {
+            try {
+                const response = await fetch('../api/category.php', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `category_id=${categoryId}`,
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    alert(data.message); // Display success message
+                    fetchCategories(); // Refresh the category list
+                } else {
+                    alert(data.message || 'Failed to delete category.');
+                }
+            } catch (error) {
+                console.error('Error deleting category:', error);
+                alert('An error occurred while deleting the category.');
+            }
+        }
     }
 
     document.addEventListener('DOMContentLoaded', fetchCategories);

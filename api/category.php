@@ -18,6 +18,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $categories = $categoryModel->getAllCategories();
     echo json_encode(['success' => true, 'categories' => $categories]);
     exit();
+} elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+    parse_str(file_get_contents("php://input"), $_DELETE);
+    if (isset($_DELETE['category_id'])) {
+        $response = $categoryModel->deleteCategory($_DELETE['category_id']);
+    } else {
+        $response = [
+            'success' => false,
+            'message' => 'Category ID is required.'
+        ];
+    }
+
+    echo json_encode($response);
+    exit();
 }
 
 echo json_encode(['success' => false, 'message' => 'Invalid request.']);
