@@ -61,6 +61,9 @@ $username = $_SESSION['username']; // Get the username from the session
                         <a class="nav-link" href="product.php"><i class="fas fa-info-circle me-2"></i>Add New Product</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="categories.php"><i class="fas fa-shopping-bag me-2"></i>Categories</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="add_category.php"><i class="fas fa-info-circle me-2"></i>Add New Category</a>
                     </li>
                 </ul>
