@@ -41,5 +41,18 @@ class User {
             return ["success" => false, "message" => $e->getMessage()];
         }
     }
+
+    public function getUsersCount() {
+        try {
+            $sql = "SELECT COUNT(*) as total_users 
+                    FROM user";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return ["success" => true, "total_users" => $result['total_users']];
+        } catch (PDOException $e) {
+            return ["success" => false, "message" => $e->getMessage()];
+        }
+    }
 }
 ?>

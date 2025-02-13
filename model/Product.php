@@ -63,6 +63,20 @@ class Product {
         }
     }
 
+    public function getProductsCount() {
+        try {
+            $sql = "SELECT COUNT(*) as total_products 
+                    FROM product";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return ["success" => true, "total_products" => $result['total_products']];
+        } catch (PDOException $e) {
+            return ["success" => false, "message" => $e->getMessage()];
+        }
+    }
+    
+
     // Fetch a single product by ID
     public function getProductById($id) {
         try {

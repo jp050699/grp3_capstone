@@ -9,6 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['product_id'])) {
     $response = $productModel->getProductById($_GET['product_id']);
     echo json_encode($response);
     exit();
+} else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'count') {
+    $response = $productModel->getProductsCount();
+    echo json_encode($response);
+    exit();
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Fetch all products
     $response = $productModel->getAllProducts();

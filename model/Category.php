@@ -67,6 +67,19 @@ class Category {
         }
     }
 
+    public function getCategoriesCount() {
+        try {
+            $sql = "SELECT COUNT(*) as total_categories
+                    FROM category";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return ["success" => true, "total_categories" => $result['total_categories']];
+        } catch (PDOException $e) {
+            return ["success" => false, "message" => $e->getMessage()];
+        }
+    }
+
     // Delete a category by ID
     public function deleteCategory($id) {
         try {

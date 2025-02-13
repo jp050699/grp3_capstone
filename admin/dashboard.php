@@ -17,9 +17,43 @@ include('header.php');
                 </div>
             </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<script>
+    // Function to fetch and display Categories
+    async function fetchCategoriesCount() {
+        try {
+            const response = await fetch('../api/category.php?action=count'); // Call the API
+            const data = await response.json();
+
+            if (data.success) {
+                const categoryCount = document.getElementById('categoryCount');
+                categoryCount.innerHTML = data.total_categories; // Clear the table body
+            } else {
+                alert(data.message || 'Failed to fetch categories.');
+            }
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+            alert('An error occurred while fetching categories.');
+        }
+    }
+    async function fetchProductsCount() {
+        try {
+            const response = await fetch('../api/product.php?action=count'); // Call the API
+            const data = await response.json();
+
+            if (data.success) {
+                const productCount = document.getElementById('productCount');
+                productCount.innerHTML = data.total_products; // Clear the table body
+            } else {
+                alert(data.message || 'Failed to fetch categories.');
+            }
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+            alert('An error occurred while fetching categories.');
+        }
+    }
+    document.addEventListener('DOMContentLoaded', fetchCategoriesCount);
+    document.addEventListener('DOMContentLoaded', fetchProductsCount);
+</script>
 <?php
 include('footer.php');
 ?>

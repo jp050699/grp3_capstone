@@ -33,6 +33,7 @@ $username = $_SESSION['username']; // Get the username from the session
             <button class="btn btn-light">
                 <i class="fa fa-user"></i> Admin <i class="fa fa-caret-down"></i>
             </button>
+            <img src="../img/logo.png" alt="Site Logo" class="logo" width="50" height="50" class="d-inline-block align-text-top">
             <div class="dropdown-menu">
                 <a href="profile.php" class="dropdown-item">Profile</a>
                 <a href="logout.php" class="dropdown-item">Logout</a>
@@ -42,7 +43,7 @@ $username = $_SESSION['username']; // Get the username from the session
     <div class="d-flex">
         <div class="sidebar" id="sidebar">
             
-            <img src="../img/logo.png" alt="Site Logo" class="logo" width="50" height="50" class="d-inline-block align-text-top">
+            
             <a href="dashboard.php"><i class="fa fa-box"></i>Dashboard</a>
             <a href="products.php"><i class="fa fa-box"></i> Products</a>
             <a href="categories.php"><i class="fas fa-shopping-bag"></i> Category</a>

@@ -25,6 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $response = $categoryModel->getCategoryById($_GET['category_id']);
     echo json_encode($response);
     exit();
+} else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'count') {
+    $response = $categoryModel->getCategoriesCount();
+    echo json_encode($response);
+    exit();
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Fetch all categories
     $categories = $categoryModel->getAllCategories();
