@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $categoryId = $_POST['category_id'];
         $name = $_POST['name'];
         $response = $categoryModel->updateCategory($categoryId, $name);
+        echo json_encode($response);
     } else if (isset($_POST['name']) && !empty($_POST['name'])) {
         $response = $categoryModel->addCategory($_POST['name']);
         echo json_encode($response);

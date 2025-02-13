@@ -1,7 +1,7 @@
 <?php include('header.php'); ?>
 
 <div class="container mt-5">
-    <h1>Products</h1>
+    <h1>Categories</h1>
     <a href="category.php" class="btn btn-primary mb-3">Add New Category</a>
     <table class="table table-bordered">
         <thead>
