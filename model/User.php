@@ -45,7 +45,7 @@ class User {
     public function getUsersCount() {
         try {
             $sql = "SELECT COUNT(*) as total_users 
-                    FROM user";
+                    FROM user where isAdmin = 0";
             $stmt = $this->db->prepare($sql);
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);

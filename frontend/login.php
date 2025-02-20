@@ -45,8 +45,13 @@
                         $responseData = json_decode($response, true);
                         if ($responseData['success']) {
                             echo '<div class="alert alert-success">' . htmlspecialchars($responseData['message']) . '</div>';
-                            $_SESSION['username'] = $responseData['user']['username']; // Store username in session
-                            header("Location: home.php"); // Redirect to home.php
+                            $_SESSION['username'] = $responseData['user']['username']; 
+                            $_SESSION['isAdmin'] = $responseData['user']['isAdmin'];// Store username in session
+                            if($_SESSION['isAdmin'] === 1) {
+                                header("Location: ../admin/dashboard.php");
+                            } else {
+                                header("Location: home.php"); // Redirect to home.php
+                            }
                             exit();
                         } else {
                             echo '<div class="alert alert-danger">' . htmlspecialchars($responseData['message']) . '</div>';

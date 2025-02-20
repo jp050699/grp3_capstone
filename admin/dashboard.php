@@ -51,6 +51,22 @@ include('header.php');
             alert('An error occurred while fetching categories.');
         }
     }
+    async function fetchProductsCount() {
+        try {
+            const response = await fetch('../api/user.php?action=count'); // Call the API
+            const data = await response.json();
+
+            if (data.success) {
+                const userCount = document.getElementById('userCount');
+                userCount.innerHTML = data.total_users; // Clear the table body
+            } else {
+                alert(data.message || 'Failed to fetch categories.');
+            }
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+            alert('An error occurred while fetching categories.');
+        }
+    }
     document.addEventListener('DOMContentLoaded', fetchCategoriesCount);
     document.addEventListener('DOMContentLoaded', fetchProductsCount);
 </script>

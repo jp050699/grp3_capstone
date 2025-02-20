@@ -2,8 +2,8 @@
 session_start();
 
 // Check if the user is logged in
-if (!isset($_SESSION['username'])) {
-    header("Location: login.php"); // Redirect to login page if not logged in
+if (!isset($_SESSION['username']) || !isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] !== 1) {
+    header("Location: ../frontend/logout.php"); // Redirect to login page if not logged in
     exit();
 }
 
@@ -36,7 +36,7 @@ $username = $_SESSION['username']; // Get the username from the session
             <img src="../img/logo.png" alt="Site Logo" class="logo" width="50" height="50" class="d-inline-block align-text-top">
             <div class="dropdown-menu">
                 <a href="profile.php" class="dropdown-item">Profile</a>
-                <a href="logout.php" class="dropdown-item">Logout</a>
+                <a href="../frontend/logout.php" class="dropdown-item">Logout</a>
             </div>
         </div>
     </nav>
