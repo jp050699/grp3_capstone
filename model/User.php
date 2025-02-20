@@ -42,6 +42,19 @@ class User {
         }
     }
 
+    public function getAllUsers() {
+        try {
+            $sql = "SELECT *  
+                    FROM user";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return ["success" => true, "users" => $users];
+        } catch (PDOException $e) {
+            return ["success" => false, "message" => $e->getMessage()];
+        }
+    }
+
     public function getUsersCount() {
         try {
             $sql = "SELECT COUNT(*) as total_users 
@@ -50,6 +63,18 @@ class User {
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return ["success" => true, "total_users" => $result['total_users']];
+        } catch (PDOException $e) {
+            return ["success" => false, "message" => $e->getMessage()];
+        }
+    }
+
+    // Delete a user by ID
+    public function deleteUser($id) {
+        try {
+            $sql = "DELETE FROM user WHERE userId = :id and isAdmin = 0";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([':id' => $id]);
+            return ["success" => true, "message" => "User deleted successfully!"];
         } catch (PDOException $e) {
             return ["success" => false, "message" => $e->getMessage()];
         }
