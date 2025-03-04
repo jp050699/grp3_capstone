@@ -72,6 +72,7 @@ $username = $_SESSION['username']; // Get the username from the session
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                         <li><a class="dropdown-item" href="profile.php"><i class="fas fa-user me-2"></i>Profile</a></li>
+                        <li><a class="dropdown-item" href="cart.php"><i class="fas fa-shopping-cart me-2"></i>My Cart</a></li>
                         <li><a class="dropdown-item" href="orders.php"><i class="fas fa-box-open me-2"></i>My Orders</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item text-danger" href="logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>

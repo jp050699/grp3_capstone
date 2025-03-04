@@ -34,11 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['user_id'])) {
     echo json_encode($response);
     exit();
 } elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    parse_str(file_get_contents("php://input"), $_DELETE);
-    if (isset($_DELETE['cart_id'])) {
-        $response = $cartModel->removeCartItem($_DELETE['cart_id']);
-    } elseif (isset($_DELETE['user_id'])) {
-        $response = $cartModel->clearCart($_DELETE['user_id']);
+    $inputData = file_get_contents("php://input");
+    // Decode the JSON data
+    $data = json_decode($inputData, true);
+    if (isset($data['cart_id'])) {
+        $response = $cartModel->removeCartItem($data['cart_id']);
+    } elseif (isset($data['user_id'])) {
+        $response = $cartModel->clearCart($data['user_id']);
     } else {
         $response = [
             'success' => false,

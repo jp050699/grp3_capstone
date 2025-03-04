@@ -33,7 +33,7 @@ if (isset($_GET['id'])) {
                     <h1 class="text-primary"> <?php echo htmlspecialchars($product['name']); ?> </h1>
                     <h3 class="text-danger">$<?php echo number_format($product['price'], 2); ?></h3>
                     <p class="text-muted">Category: <?php echo htmlspecialchars($product['category']); ?></p>
-                    <a href="cart.php?action=add&product_id=<?php echo $product['id']; ?>" class="btn btn-success btn-lg rounded-pill mt-3">Add to Cart</a>
+                    <button class="btn btn-success btn-lg rounded-pill mt-3" onclick="addToCart(<?php echo $product['id']; ?>)">Add to Cart</button>
                 </div>
             </div>
         </div>
@@ -49,5 +49,32 @@ if (isset($_GET['id'])) {
         margin: auto;
     }
 </style>
+
+<script>
+
+async function addToCart(productId) {
+        try {
+            const userId = <?php echo isset($_SESSION['userId']) ? $_SESSION['userId'] : 'null'; ?>;
+            const formData = new FormData();
+            formData.append('user_id', userId);
+            formData.append('product_id', productId);
+            formData.append('quantity', 1);
+            const response = await fetch('../api/cart.php', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                alert('Product added to cart successfully!');
+            } else {
+                alert(data.message || 'Failed to add product to cart.');
+            }
+        } catch (error) {
+            console.error('Error adding to cart:', error);
+        }
+    }
+
+</script>
 
 <?php include('footer.php'); ?>

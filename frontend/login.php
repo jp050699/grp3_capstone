@@ -46,6 +46,7 @@
                         if ($responseData['success']) {
                             echo '<div class="alert alert-success">' . htmlspecialchars($responseData['message']) . '</div>';
                             $_SESSION['username'] = $responseData['user']['username']; 
+                            $_SESSION['userId'] = $responseData['user']['userId']; 
                             $_SESSION['isAdmin'] = $responseData['user']['isAdmin'];// Store username in session
                             if($_SESSION['isAdmin'] === 1) {
                                 header("Location: ../admin/dashboard.php");

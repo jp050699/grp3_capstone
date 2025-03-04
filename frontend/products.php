@@ -16,7 +16,6 @@
 </div>
 
 <script>
-    // Function to fetch and display products
     async function fetchProducts() {
         try {
             const response = await fetch('../api/product.php'); // Call the API
@@ -24,7 +23,7 @@
 
             if (data.success) {
                 const productGrid = document.getElementById('productGrid');
-                productGrid.innerHTML = ''; // Clear previous content
+                productGrid.innerHTML = ''; 
 
                 data.products.forEach(product => {
                     const productCard = `
@@ -36,6 +35,7 @@
                                     <p class="card-text text-muted">${product.category}</p>
                                     <p class="card-text text-danger font-weight-bold">$${product.price}</p>
                                     <a href="product-detail.php?id=${product.id}" class="btn btn-primary">View Details</a>
+                                    <button class="btn btn-success mt-2" onclick="addToCart(${product.id})">Add to Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +51,29 @@
         }
     }
 
-    // Function to filter products
+    async function addToCart(productId) {
+        try {
+            const userId = <?php echo isset($_SESSION['userId']) ? $_SESSION['userId'] : 'null'; ?>;
+            const formData = new FormData();
+            formData.append('user_id', userId);
+            formData.append('product_id', productId);
+            formData.append('quantity', 1);
+            const response = await fetch('../api/cart.php', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                alert('Product added to cart successfully!');
+            } else {
+                alert(data.message || 'Failed to add product to cart.');
+            }
+        } catch (error) {
+            console.error('Error adding to cart:', error);
+        }
+    }
+
     function filterProducts() {
         let input = document.getElementById('searchInput').value.toLowerCase();
         let productItems = document.querySelectorAll('.product-item');
@@ -62,7 +84,6 @@
         });
     }
 
-    // Fetch products on page load
     document.addEventListener('DOMContentLoaded', fetchProducts);
 </script>
 
