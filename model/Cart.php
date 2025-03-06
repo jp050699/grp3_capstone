@@ -39,7 +39,7 @@ class Cart {
     // Get cart items for a user
     public function getCartItems($userId) {
         try {
-            $sql = "SELECT c.id, c.quantity, p.name, p.price, p.image
+            $sql = "SELECT c.id, c.quantity, c.product_id, p.name, p.price, p.image
                     FROM cart c
                     INNER JOIN product p ON c.product_id = p.id
                     WHERE c.user_id = :user_id";

@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    $response = $checkoutModel->createOrder($_POST['user_id'], $_POST['cart'], $_POST['total_price'], $_POST['address'], $_POST['payment_method']);
+    $response = $checkoutModel->createOrder($_POST['user_id'], json_decode($_POST['cart'],true), $_POST['total_price'], $_POST['address'], $_POST['payment_method']);
     echo json_encode($response);
     exit();
 }
