@@ -48,6 +48,7 @@ $username = $_SESSION['username']; // Get the username from the session
             <a href="products.php"><i class="fa fa-box"></i> Products</a>
             <a href="categories.php"><i class="fas fa-shopping-bag"></i> Category</a>
             <a href="users.php"><i class="fa fa-users"></i> User</a>
+            <a href="orders.php"><i class="fa fa-box-open"></i> Orders</a>
         </div>
         <div class="content">
             
