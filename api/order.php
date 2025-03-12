@@ -5,7 +5,7 @@ require_once '../model/Checkout.php';
 $checkoutModel = new Checkout();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $orders = $orderModel->getAllOrders();
+    $orders = $checkoutModel->getAllOrders();
     
     if ($orders) {
         echo json_encode(['success' => true, 'orders' => $orders]);
