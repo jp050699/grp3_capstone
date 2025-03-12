@@ -38,6 +38,29 @@ class Checkout{
         }
     }
 
+    public function getOrderByUserId($userid){
+        $query = "SELECT orders.id, orders.user_id, orders.total_price, orders.payment_method, 
+                         orders.address, orders.status, orders.created_at
+                  FROM orders
+                  WHERE orders.user_id = $userid
+                  ORDER BY orders.created_at DESC";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!$orders) {
+            return [];
+        }
+
+        // Fetch order items for each order
+        foreach ($orders as &$order) {
+            $order['items'] = $this->getOrderItems($order['id']);
+        }
+
+        return $orders;
+    }
+
     public function getAllOrders() {
         $query = "SELECT orders.id, orders.user_id, user.username AS customer_name, orders.total_price, orders.payment_method, 
                          orders.address, orders.status, orders.created_at

@@ -4,7 +4,20 @@ require_once '../model/Checkout.php';
 
 $checkoutModel = new Checkout();
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['user_id'])) {
+    // Fetch all products
+    $orders = $checkoutModel->getOrderByUserId($_GET['user_id']);
+    if ($orders) {
+        echo json_encode(['success' => true, 'orders' => $orders]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'No orders found.']);
+    }
+    exit();
+} if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'count') {
+    $response = $checkoutModel->getOrdersCount();
+    echo json_encode($response);
+    exit();
+} elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $orders = $checkoutModel->getAllOrders();
     
     if ($orders) {
